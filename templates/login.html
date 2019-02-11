@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {
+  box-sizing: border-box;
+}
+
+/* Create two unequal columns that floats next to each other */
+.column {
+  float: left;
+  padding: 10px;
+  height: 800px;
+}
+
+.left {
+  width: 33%;
+}
+
+.middle{
+	width: 33%;
+}
+
+.right {
+  width: 34%;
+}
+
+</style>
+</head>
+<body>
+
+	{% if error %}
+
+	<div style="text-align:center; background-color: #ff9999; padding: 10px">
+	  <strong>{{ error }}</strong> 
+	</div>
+
+
+	{% endif %}
+
+<div class="row">
+
+  <div class="column left", style = "background-color: #adebeb">
+
+    <h2> Signup! It is a very fun site, ya know.</h2>
+		
+		<form method="POST" action={{ "./signup"}}>
+			<input type="username" placeholder="Username" name="new_user"> 
+			<input type="Password" placeholder="Password" name="new_password"> 
+			<input type="submit" value="Enroll">
+		</form>
+
+
+
+  </div>
+
+  <div class="column middle", style = "background-color: #ecc6d9">
+
+		<h2> Familiar with the fun? Login here! </h2>
+
+		<form method="POST" action={{ "./login"}}>
+			<input type="username" placeholder="Username" name="login_username"> 
+			<input type="Password" placeholder="Password" name="login_password"> 
+			<input type="submit" value="Login">
+		</form>
+
+	</div>
+
+  <div class="column middle", style = "background-color: #adebeb">
+
+  	<h2> Or close your account here :-( </h2>
+			
+			<form method="POST" action={{"./delete_user"}}>
+				<input type="username" placeholder="Username" name="delete_username">
+				<input type="Password" placeholder="Password" name="delete_password">
+				<input type="submit" style="color:#ff1a1d" value="Delete Me">
+			</form>
+
+    <h3>Our <u>Loyal</u> Users</h3>		
+    	
+    	{% for one_of_em in current_users %}
+				<p>{{ one_of_em.username }}</p>
+			
+			{% endfor %}
+
+	</div>
+  
+  </div>
+</div>
+
+</body>
+</html>

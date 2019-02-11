@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+
+	<form action="/">
+		<div align="right">
+    <input type="submit" style="color:#ff1a1d; font-size: 12pt; font-weight: bold; width: auto" value= "Log Out, {{ creator }}"/>
+  </div>
+	</form>
+	
+
+	<br>
+	<br>
+
+<div style="text-align:center">
+
+		<h3> Create a new entry </h3>
+		<br>
+		<form method="POST" action={{ "/account?creator=%s" % creator }}>
+			<input type="username" placeholder="Desired Key" name="new_key"> 
+			<input type="username" placeholder="Desired Value" name="new_value"> 
+			<input type="submit" value="Add to Database">
+		</form>
+		{% if error %}
+		<div style="color: #ff1a1d">{{ error }} </div>
+		{% endif %}
+	<br>
+	<br>
+
+		{% if entries %}
+    <div class="col-md-8 col-md-offset-1 tm">
+       <div class="panel panel-default">
+           <div class="panel-heading">
+               <h3 class="panelheader">Previous Entries</h3>
+           </div>
+           <div class="panel-body">
+	           <table border="2px" align = 'center'>
+		           <thead>
+		                <td width="26%"><strong>Key</strong></td>
+		                <td width="26%"><strong>Value</strong></td>
+		                <td width="26%"><strong>Updated Value</strong></td>
+		                <td width="11%"><strong>Update</strong></td>
+		                <td width="11%"><strong>Delete</strong></td>
+		           </thead>
+		           
+								{% for entry in entries %}
+		           	<tr>
+			            	<td>{{entry.key}}</td>
+		                <td>{{entry.value}}</td>
+                		
+                		<form method="POST" action={{"./update?creator=%s" % creator }}>
+										<input type="hidden" value="{{entry.key}}" name="key_to_update">
+										<td><input type="text" name="newvalue"></td>
+										<td><input type="submit" value="Update"></td>
+										</form>
+
+										<form method="POST" action={{"./delete_post?creator=%s" % creator }}>
+										<input type="hidden" value="{{entry.key}}" name="key_to_delete">
+										<td><input type="submit" value="Delete"></td>
+										</form> 
+		            </tr>
+		           	{% endfor %}
+	           </table>
+           </div>
+       	</div>
+    	</div>
+ 		{% endif %}
+
+</div>
+
+</body>
+</html>
